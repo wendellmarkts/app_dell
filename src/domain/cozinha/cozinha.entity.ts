@@ -1,7 +1,6 @@
- 
+// cozinha.entity.ts
 import { Entity, PrimaryGeneratedColumn, Column, OneToOne, JoinColumn } from 'typeorm';
-import { User } from '../users/user.entity';
- 
+import { User } from '../users/user.entity'; // Certifique-se de que o caminho para User esteja correto.
 
 @Entity('COZINHA')
 export class Cozinha {
@@ -16,5 +15,5 @@ export class Cozinha {
 
   @OneToOne(() => User, { nullable: false })
   @JoinColumn({ name: 'id_usuario' })
-  user: User;
+  user: User; // Esta é a referência à entidade User, que corresponde à chave estrangeira 'id_usuario'.
 }

@@ -1,8 +1,6 @@
 // categoria.entity.ts
-
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
 import { Produto } from '../produto/produto.entity';
- 
 
 @Entity('CATEGORIA')
 export class Categoria {
@@ -15,6 +13,7 @@ export class Categoria {
   @Column('text')
   descricao: string;
 
+  // Relação OneToMany com a entidade Produto, onde cada categoria pode ter vários produtos
   @OneToMany(() => Produto, produto => produto.categoria)
   produtos: Produto[];
 }

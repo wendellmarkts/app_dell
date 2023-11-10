@@ -1,9 +1,8 @@
 // cliente.entity.ts
-
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
 import { Pedido } from '../pedido/pedido.entity';
-import { ItemClientesPedidos } from '../item-clientes-pedidos/itemClientesPedidos.entity';
- 
+import { Avaliacao } from '../avaliacoes/avaliacoes.entity';
+ // Certifique-se de que a entidade Avaliacao esteja importada corretamente.
 
 @Entity('CLIENTE')
 export class Cliente {
@@ -25,9 +24,11 @@ export class Cliente {
   @Column({ length: 14, unique: true })
   cpf: string;
 
+  // OneToMany relationship with Pedido
   @OneToMany(() => Pedido, pedido => pedido.cliente)
   pedidos: Pedido[];
 
-  @OneToMany(() => ItemClientesPedidos, item => item.cliente)
-  itemClientesPedidos: ItemClientesPedidos[]; // Adicione esta linha
+  // OneToMany relationship with Avaliacao
+  @OneToMany(() => Avaliacao, avaliacao => avaliacao.cliente)
+  avaliacoes: Avaliacao[]; // Esta linha é adicionada para representar a relação com avaliações.
 }

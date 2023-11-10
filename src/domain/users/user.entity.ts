@@ -3,16 +3,16 @@ import { Role } from '../roles/role.entity';
 
 @Entity('USUARIOS')
 export class User {
-  @PrimaryGeneratedColumn({ name: 'id_usuario' })
-  id: number;
+  @PrimaryGeneratedColumn()
+  id_usuario: number; // This should match the name of the primary key column
 
-  @Column({ name: 'email', unique: true }) // Mapear para a coluna "email" no banco de dados
-  email: string; // Alterar o nome da propriedade para "email"
+  @Column({ unique: true })
+  email: string; // This will map to the email column and is marked as unique
 
   @Column({ name: 'senha_hash' })
-  password: string;
+  senha_hash: string; // The property name should match the column name
 
   @ManyToOne(() => Role)
-  @JoinColumn({ name: 'role_id' })
-  role: Role;
+  @JoinColumn({ name: 'role_id' }) // This specifies the column name for the foreign key
+  role: Role; // This establishes the many-to-one relationship with the Role entity
 }

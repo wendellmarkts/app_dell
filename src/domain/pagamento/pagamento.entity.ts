@@ -1,3 +1,5 @@
+// src/pagamento/pagamento.entity.ts
+
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn } from 'typeorm';
 import { Pedido } from '../pedido/pedido.entity';
 
@@ -18,10 +20,13 @@ export class Pagamento {
   @Column({ length: 50 })
   status: string;
 
+  @Column({ nullable: true }) // If 'numero_parcelas' can be null
+  numero_parcelas: number;
+
   @ManyToOne(() => Pedido, pedido => pedido.pagamentos)
-  @JoinColumn({ name: 'id_pedido' }) // Especifique o nome da coluna para o join
+  @JoinColumn({ name: 'id_pedido' }) // Specify the column name for joining
   pedido: Pedido;
 
-  @Column({ name: 'id_pedido' }) // Adicione esta linha para especificar o nome da coluna
-  id_pedido: number; // Adicione esta linha para mapear o ID do pedido
+  @Column({ nullable: false })
+  id_pedido: number; // This line maps the pedido ID and ensures it is not nullable
 }

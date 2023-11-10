@@ -1,5 +1,4 @@
-// descontos.entity.ts
-
+ 
 import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
 
 @Entity('DESCONTOS')

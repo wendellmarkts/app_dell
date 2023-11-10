@@ -1,37 +1,40 @@
-// src/itemProdutosPedidos/itemProdutosPedidos.entity.ts
-
-import { Entity, ManyToOne, Column, PrimaryColumn } from 'typeorm';
- 
+import { Entity, PrimaryColumn, Column, ManyToOne, JoinColumn } from 'typeorm';
 import { Pedido } from '../pedido/pedido.entity';
 import { Produto } from '../produto/produto.entity';
+import { Desconto } from '../descontos/descontos.entity';
 
 @Entity('ITEM_PRODUTOS_PEDIDOS')
 export class ItemProdutosPedidos {
-
-  @PrimaryColumn()
+  // Explicitly defining the type ensures consistency with the database schema.
+  @PrimaryColumn({ type: 'int' })
   id_produto: number;
 
-  @PrimaryColumn()
+  @PrimaryColumn({ type: 'int' })
   id_pedido: number;
 
-  @ManyToOne(() => Produto, produto => produto.id_produto)
-  produto: Produto;
-
-  @ManyToOne(() => Pedido, pedido => pedido.id_pedido)
-  pedido: Pedido;
-
-  @Column({ length: 255 })
+  // Utilize a consistent style for column definitions.
+  @Column({ type: 'varchar', length: 255 })
   qrcode: string;
 
-  @Column('int')
+  @Column({ type: 'int' })
   quantidade: number;
 
-  @Column('decimal', { precision: 10, scale: 2 })
+  // The precision and scale define the maximum number of digits and the number of digits after the decimal point.
+  @Column({ type: 'decimal', precision: 10, scale: 2 })
   preco_unitario: number;
 
-  @Column({ length: 50 })
-  status_pagamento: string;
+  // Establishes a many-to-one relationship with Produto.
+  @ManyToOne(() => Produto, { eager: true })
+  @JoinColumn({ name: 'id_produto' })
+  produto: Produto;
 
-  @Column({ length: 50 })
-  item_status_pedido_produto: string;
+  // Establishes a many-to-one relationship with Pedido.
+  @ManyToOne(() => Pedido, { eager: true })
+  @JoinColumn({ name: 'id_pedido' })
+  pedido: Pedido;
+
+  // If a discount is not always applicable, ensure this is nullable. Otherwise, remove the nullable option.
+  @ManyToOne(() => Desconto, { nullable: true })
+  @JoinColumn({ name: 'desconto_id' })
+  desconto?: Desconto; // If nullable, indicate with a TypeScript optional type (?).
 }

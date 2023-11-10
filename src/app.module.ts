@@ -7,7 +7,7 @@ import { PagamentoModule } from './domain/pagamento/pagamento.module';
 import { PedidoModule } from './domain/pedido/pedido.module';
 import { ProdutoModule } from './domain/produto/produto.module';
 import { ItemProdutosPedidosModule } from './domain/item-produtos-pedidos/item-produtos-pedidos.module';
-import { ItemClientesPedidosModule } from './domain/item-clientes-pedidos/item-clientes-pedidos.module';
+ 
 
 // Entidades
 import { Produto } from './domain/produto/produto.entity';
@@ -18,16 +18,23 @@ import { Avaliacao } from './domain/avaliacoes/avaliacoes.entity';
 import { Cozinha } from './domain/cozinha/cozinha.entity';
 import { Pontuacao } from './domain/pontuacao/pontuacao.entity';
 import { Role } from './domain/roles/role.entity';
-import { Admin } from './domain/admin/admin.entity';
+ 
 import { Desconto } from './domain/descontos/descontos.entity';
 import { ItemProdutosPedidos } from './domain/item-produtos-pedidos/itemProdutosPedidos.entity';
-import { ItemClientesPedidos } from './domain/item-clientes-pedidos/itemClientesPedidos.entity';
+ 
 import { Categoria } from './domain/categoria/categoria.entity';
 import { CategoriaModule } from './domain/categoria/categoria.module';
-import { RouterModule } from '@nestjs/core';
+ 
 import { UsersModule } from './domain/users/users.module';
 import { RolesModule } from './domain/roles/roles.module';
 import { User } from './domain/users/user.entity';
+import { EstoqueModule } from './domain/estoque/estoque.module';
+import { Estoque } from './domain/estoque/estoque.entity';
+ 
+import { NotaFiscalModule } from './domain/nota-fiscal/nota-fiscal.module';
+import { NotaFiscal } from './domain/nota-fiscal/nota-fiscal.entity';
+import { HistoricoPedido } from './domain/historico_pedido/historico_pedido.entity';
+import { HistoricoPedidoModule } from './domain/historico_pedido/historico_pedido.module';
  
 @Module({
   imports: [
@@ -39,9 +46,10 @@ import { User } from './domain/users/user.entity';
       password: '',
       database: 'db_pedido',
       entities: [
-        Produto, Cliente, Pedido, Admin, Avaliacao, Cozinha,Categoria,
-        Pontuacao, Role, Pagamento, Desconto, ItemProdutosPedidos, User,
-        ItemClientesPedidos
+        Produto, Cliente, Pedido,  Avaliacao, Cozinha,Categoria,
+        Pontuacao,Estoque, Role, Pagamento, Desconto, ItemProdutosPedidos, User,
+        NotaFiscal,HistoricoPedido
+        
       ],
       synchronize: true,
     }),
@@ -52,8 +60,12 @@ import { User } from './domain/users/user.entity';
     ClienteModule,
     PedidoModule,
     PagamentoModule,
+    HistoricoPedidoModule,
     ItemProdutosPedidosModule,
-    ItemClientesPedidosModule
+    EstoqueModule,
+    NotaFiscalModule,
+ 
   ],
+  providers: [],
 })
 export class AppModule {}
